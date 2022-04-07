@@ -52,11 +52,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'tailwind',
     'theme',
+    #'django_browser_reload'
     # Apps
     #'core.elearning',
     'core.homepage',
     'core.login',
     'core.user',
+    'core.courses'
 ]
 
 TAILWIND_APP_NAME='theme'
@@ -96,6 +98,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #'django_browser_reload.middleware.BrowserReloadMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crum.CurrentRequestUserMiddleware',
@@ -125,7 +128,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = db.MYSQL
+DATABASES = db.POSTGRESQL
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
