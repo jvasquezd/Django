@@ -15,6 +15,7 @@ import os
 import config.db as db
 import environ
 
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -33,9 +34,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'tailwind',
+    'theme',
     # Apps
     #'core.elearning',
     'core.homepage',
@@ -56,12 +59,36 @@ INSTALLED_APPS = [
     'core.user',
 ]
 
+TAILWIND_APP_NAME='theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+ACCOUNT_ALLOWS_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION',True)
+ACCOUNT_AUTHENTICATION = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_UNIQUE = True
+ACCOUNT_LOGOUT_ON_SET = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+AUTH_USER_MODEL = 'user.User'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,7 +125,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = db.SQLITE
+DATABASES = db.MYSQL
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
