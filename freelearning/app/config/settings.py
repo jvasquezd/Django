@@ -45,13 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    
      # Libs
-    'widget_tweaks',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    #'widget_tweaks',
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
+    
     'tailwind',
-    'theme',
+    #'theme',
+    
+    #'rest_framework',
+    #'crispy_forms',
+    #'crispy_tailwind',
+    
     #'django_browser_reload'
     # Apps
     #'core.elearning',
@@ -60,24 +67,38 @@ INSTALLED_APPS = [
     'core.user',
     'core.courses'
 ]
-
-TAILWIND_APP_NAME='theme'
+"""
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATON_CLASSES":(
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+"""
+#TAILWIND_APP_NAME='theme'
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+#CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+#CRISPY_TEMPLATE_PACK = "tailwind"
 
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+"""
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
+"""
+"""
 ACCOUNT_ALLOWS_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION',True)
-ACCOUNT_AUTHENTICATION = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_LOGOUT_ON_SET = True
@@ -88,10 +109,10 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+LOGIN_URL = "account_login"
 
 SITE_ID = 1
-
+"""
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
