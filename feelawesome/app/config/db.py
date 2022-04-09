@@ -23,7 +23,7 @@ POSTGRESQL = {
 MYSQL = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eudoro',
+        'NAME': 'feelawesome',
         'USER': 'root',
         'PASSWORD': 'winter',
         'HOST': 'localhost',
