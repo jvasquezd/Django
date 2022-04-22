@@ -2,6 +2,18 @@
 {% load static %}
 {% block body %}
     {% include 'components/navbar.html' %}
-    {{ message }}
+    <section class="py-12">
+            <h1 class="text-gray-600 text-center text-3xl mb-6">5MinTest Depression</h1>
+            <p class="text-gray-600 text-center text-sm mb-6">El resultado de su nivel de depresion es: {{ message }}</p>
+            <h4 class="text-gray-600 text-center text-xl mb-6"</h4>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+                <article>
+                    <p>Sexo</p>
+
+                </article>
+
+            </div>
+    </section>
+
     {% include 'components/footer.html' %}
 {% endblock %}
