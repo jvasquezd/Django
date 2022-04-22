@@ -1,0 +1,755 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <!-- My css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock%}
+{% block body %}
+    {% include 'components/navbar.html' %}
+     <section id="banner" class="bg-cover bg-center">
+         <div class="max-w-7xl mx-auto px-4 py-36 sm:px-6 lg:px-8 text-white">
+             <div class="w-full md:w-3/4 lg:w-1/2">
+                 <h1 class="text-black font-bold text-4xl">5MinTest Depression</h1>
+                 <!--<p class="text-black text-lg mt-2 mb-4">Garantizamos una educación inclusiva, equitativa y de calidad y promover oportunidades de aprendizaje durante toda la vida para todos</p>
+                  This is an example component -->
+                 <!--
+                <div class="pt-2 relative mx-auto text-gray-600">
+                     <div class="w-full bg-red-500 hover:bg-red-700 h-10 px-5 py-2 pr-16 rounded-lg text-center">
+                         <a href="{% url 'index' %}" class="no-underline text-white font-bold">Regresar</a>
+                     </div>
+                 </div>-->
+             </div>
+         </div>
+    </section>
+
+    <form method="post" action="{% url 'dps:result' %}">
+        {% csrf_token %}
+        <section class="py-12">
+            <h1 class="text-gray-600 text-center text-3xl mb-6">5MinTest Depression</h1>
+            <p class="text-gray-600 text-center text-sm mb-6">Este es un formulario para detectar y evaluar el nivel de depresión en estudiantes universitarios. </p>
+            <h4 class="text-gray-600 text-center text-xl mb-6">Datos Sociodemograficos</h4>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
+                <article>
+                    <p>Sexo</p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="sx1" name="sx" value="Masculino" required="required">
+                                <label for="sx1" class="text-sm">Masculino.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="sx2" name="sx" value="Femenino" required="required">
+                                <label for="sx2" class="text-sm">Femenino</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="sx3" name="sx" value="Prefiero no Decirlo." required="required">
+                                <label for="sx3" class="text-sm">Prefiero no Decirlo.</label>
+                          </div>
+                        </li>
+                    </ul>
+                </article>
+
+                <article>
+                    <label for="ciaa" class="mb-3">Ciclo Academico Actual</label>
+                    <ul class="list-group">
+                        <select name="ciaa" id="ciaa" required>
+                            <option value="">-- Seleccionar-- </option>
+                            <option value="Ciclo I">Ciclo I</option>
+                            <option value="Ciclo II">Ciclo II</option>
+                            <option value="Ciclo III">Ciclo III</option>
+                            <option value=">Ciclo IV">Ciclo IV</option>
+                            <option value="Ciclo V">Ciclo V</option>
+                            <option value="Ciclo VI">Ciclo VI</option>
+                            <option value="Ciclo VII">Ciclo VII</option>
+                            <option value="Ciclo VIII">Ciclo VIII</option>
+                            <option value=">Ciclo IX">Ciclo IX</option>
+                            <option value="Ciclo X">Ciclo X</option>
+                        </select>
+
+                    </ul>
+                </article>
+                <article>
+                    <label for="ec" class="mb-3">Estado Civil</label>
+                    <ul class="list-group">
+                         <select name="ec" id="ec" required>
+                             <option value="">-- Seleccionar-- </option>
+                             <option value="Soltero">Soltero(a)</option>
+                             <option value="Casado">Casado(a)</option>
+                             <option value="Viudo">Viudo(a)</option>
+                             <option value="Divorciado">Divorciado(a)</option>
+                             <option value="Conviviente">Conviviente</option>
+                        </select>
+                    </ul>
+                </article>
+
+                <article>
+                    <p>Ocupacion</p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="ocu1" name="ocu" value="Tiene trabajo estable" required="required">
+                                <label for="ocu1" class="text-sm">Tiene trabajo estable</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="ocu2" name="ocu" value="Tiene trabajo eventual" required="required">
+                                <label for="ocu2" class="text-sm">Tiene trabajo eventual</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="ocu3" name="ocu" value="No trabaja" required="required">
+                                <label for="ocu3" class="text-sm">No trabaja</label>
+                          </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <label for="tf" class="mb-3">Tipo de Familia</label>
+                    <ul class="list-group">
+                         <select name="tf" id="tf" required>
+                             <option value="">-- Seleccionar-- </option>
+                             <option value="Nuclear">Nuclear</option>
+                             <option value="Monoparental">Monoparental</option>
+                             <option value="Extendida">Extendida</option>
+                             <option value="Amplia">Amplia</option>
+                             <option value="Reconstituida">Reconstituida</option>
+                             <option value="Equivalente Familia">Equivalente Familia</option>
+                             <option value="Persona Sola">Persona Sola</option>
+                        </select>
+                    </ul>
+                </article>
+                <article>
+                    <label class="block mb-3" for="edad">Edad</label>
+                    <input class="mb-3" id="edad" name="edad" min="16" max="30" type="number" placeholder="Edad" required>
+                </article>
+            </div>
+            <h4 class="text-gray-600 text-center text-xl mb-6">Inventario de Depresion de Beck (BDI-II)</h4>
+            <p class="text-gray-600 text-center text-sm m-6">Instrucciones: Este cuestionario consta de 21 grupos de enunciados. Por favor, lea cada uno de ellos cuidadosamente. Luego elija uno de cada grupo, el que mejor describa el modo como se ha sentido las ultimas dos semanas, incluyendo el día de hoy. Marque el numero correspondiente al enunciado elegido. Si varios enunciados de un mismo grupo le parecen igualmente apropiados, marque el numero más alto. Verifique que no haya elegido más de uno por grupo, incluyendo el ítem 16 (Cambio en los hábitos de sueño) y el ítem 18 (Cambio de apetito).</p>
+
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-x-2 gap-y-4">
+                <article>
+                    <p>1.- Tristeza</p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi10" name="bdi1" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi11" name="bdi1" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi12" name="bdi1" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi13" name="bdi1" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>3.- Fracaso  </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>4.- Perdida de Placer </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>5.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article>
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+                <article class="mb-3">
+                    <p>2.- Pesimismo </p>
+                    <ul class="list-group">
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi20" name="bdi2" value="0" required="required">
+                                <label for="bdi10" class="text-sm">0 No me siento triste.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi21" name="bdi2" value="1" required="required">
+                                <label for="bdi11" class="text-sm">1 Me siento triste gran parte del tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi22" name="bdi2" value="2" required="required">
+                                <label for="bdi12" class="text-sm">2 Me siento triste todo el tiempo.</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <input type="radio" id="bdi23" name="bdi2" value="3" required="required">
+                                <label for="bdi13" class="text-sm">3 Me siento tan triste o soy tan infeliz que no puedo soportarlo.</label>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+            <h4 class="text-gray-600 text-center text-xl mb-6">Test de Frases incompletas</h4>
+            <p class="text-gray-600 text-center text-sm m-6">Instrucciones:  A continuación hay 24 frases incompletas. Lea cada una y complétela con frases cortas con lo primero que venga a su mente. Trabaje tan aprisa como le sea posible.</p>
+
+            <button type="submit" class="w-96 bg-blue-500 hover:bg-blue-700 h-10 px-5 pr-16 rounded-lg text-white font-bold m-4">
+                Enviar Respuesta
+            </button>
+        </section>
+    </form>
+    {% include 'components/footer.html' %}
+{% endblock %}

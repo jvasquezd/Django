@@ -12,13 +12,15 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 
+
 class PredictionBDIModel(object):
     def __init__(self):
-        self.name=''
-        bdis=BDI.objects.all()
-        df = df[['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10','q11','q12','q13','q14','q15','q16','q17','q18','q19', 'q20','q21','class_dep']]
-        
-        #Handling Missing Data
+        self.name = ''
+        bdis = BDI.objects.all()
+        df = bdis[['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16',
+                 'q17', 'q18', 'q19', 'q20', 'q21', 'class_dep']]
+
+        # Handling Missing Data
         df['q1'] = df['q1'].fillna(df['q1'].mode()[0])
         df['q2'] = df['q2'].fillna(df['q2'].mode()[0])
         df['q3'] = df['q3'].fillna(df['q3'].mode()[0])
@@ -41,20 +43,19 @@ class PredictionBDIModel(object):
         df['q20'] = df['q20'].fillna(df['q20'].mode()[0])
         df['q21'] = df['q21'].fillna(df['q21'].mode()[0])
         df['class_dep'] = df['class_dep'].fillna(df['class_dep'].mode()[0])
-    
-    
-    def split_data(self,df):
+
+    def split_data(self, df):
         X = df.iloc[:, -1].values
         y = df.iloc[:, 22].values
-        #imputer = SimpleImputer(missing_values = np.nan, strategy = 'mean', verbose=0)
-        #imputer = imputer.fit(X[:, 1:3])
+        # imputer = SimpleImputer(missing_values = np.nan, strategy = 'mean', verbose=0)
+        # imputer = imputer.fit(X[:, 1:3])
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y,test_size = 0.2, random_state = 0)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
         self.X_train = X_train
         self.X_test = X_test
         self.y_train = y_train
         self.y_test = y_test
-        
+
     def svm_classifier(self):
         self.name = 'Svm Classifier'
         classifier = SVC()
@@ -63,27 +64,25 @@ class PredictionBDIModel(object):
     def decisionTree_classifier(self):
         self.name = 'Decision tree Classifier'
         classifier = DecisionTreeClassifier()
-        return classifier.fit(self.x_train,self.y_train)
-
+        return classifier.fit(self.x_train, self.y_train)
 
     def randomforest_classifier(self):
         self.name = 'Random Forest Classifier'
         classifier = RandomForestClassifier()
-        return classifier.fit(self.x_train,self.y_train)
+        return classifier.fit(self.x_train, self.y_train)
 
     def naiveBayes_classifier(self):
         self.name = 'Naive Bayes Classifier'
         classifier = GaussianNB()
-        return classifier.fit(self.x_train,self.y_train)
-
+        return classifier.fit(self.x_train, self.y_train)
 
     def knn_classifier(self):
         self.name = 'Knn Classifier'
         classifier = KNeighborsClassifier()
-        return classifier.fit(self.x_train,self.y_train)
-    
-    def accuracy(self,model):
+        return classifier.fit(self.x_train, self.y_train)
+
+    def accuracy(self, model):
         predictions = model.predict(self.x_test)
         cm = confusion_matrix(self.y_test, predictions)
         accuracy = (cm[0][0] + cm[1][1]) / (cm[0][0] + cm[0][1] + cm[1][0] + cm[1][1])
-        print(f"{self.name} has accuracy of {accuracy *100} % ")
+        print(f"{self.name} has accuracy of {accuracy * 100} % ")

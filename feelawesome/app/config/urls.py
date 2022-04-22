@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from core.dps.views import myfirstview
 from core.homepage.views import IndexView
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('login/', include('core.login.urls')),
+    # path('login/', include('core.login.urls')),
     path('admin/', admin.site.urls),
     path('dps/', include('core.dps.urls')),
     # path('user/', include('core.user.urls')),

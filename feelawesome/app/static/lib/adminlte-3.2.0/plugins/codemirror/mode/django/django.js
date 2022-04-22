@@ -44,7 +44,7 @@
     wordOperators = new RegExp("^\\b(" + wordOperators.join("|") + ")\\b");
 
     // We have to return "null" instead of null, in order to avoid string
-    // styling as the default, when using Django templates inside HTML
+    // styling as the default, when using Django result inside HTML
     // element attributes
     function tokenBase (stream, state) {
       // Attempt to identify a variable, template or comment tag respectively

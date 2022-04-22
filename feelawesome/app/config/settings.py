@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     # Apps
     'core.dps',
     'core.homepage',
-    'core.user',
-    'core.login',
+    # 'core.login',
 ]
 
 MIDDLEWARE = [
@@ -141,17 +140,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-LOGIN_REDIRECT_URL = '/dps/dashboard/'
+# LOGIN_REDIRECT_URL = '/dps/dashboard/'
 
-LOGOUT_REDIRECT_URL = '/login/'
+# LOGOUT_REDIRECT_URL = '/login/'
 
-LOGIN_URL = '/login/'
+# LOGIN_URL = '/login/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'user.User'
+# AUTH_USER_MODEL = 'user.User'
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 

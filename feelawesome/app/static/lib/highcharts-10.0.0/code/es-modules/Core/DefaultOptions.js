@@ -2523,7 +2523,7 @@ function getOptions() {
 }
 /**
  * Merge the default options with custom options and return the new options
- * structure. Commonly used for defining reusable templates.
+ * structure. Commonly used for defining reusable result.
  *
  * @sample highcharts/global/useutc-false Setting a global option
  * @sample highcharts/members/setoptions Applying a global theme

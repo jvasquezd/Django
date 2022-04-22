@@ -71,5 +71,35 @@ class BDI(models.Model):
         ordering = ['id']
 
 
-class Sacks(models.Model):
+class Sack(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, verbose_name='Paciente', db_column='pat_id')
+    s1 = models.TextField()
+    s2 = models.TextField()
+    s3 = models.TextField()
+    s4 = models.TextField()
+    s5 = models.TextField()
+    s6 = models.TextField()
+    s7 = models.TextField()
+    s8 = models.TextField()
+    s9 = models.TextField()
+    s10 = models.TextField()
+    s11 = models.TextField()
+    s12 = models.TextField()
+    s13 = models.TextField()
+    s14 = models.TextField()
+    s15 = models.TextField()
+    s16 = models.TextField()
+    s17 = models.TextField()
+    s18 = models.TextField()
+    s19 = models.TextField()
+    s20 = models.TextField()
+    s21 = models.TextField()
+    s22 = models.TextField()
+    s23 = models.TextField()
+    s24 = models.TextField()
+
+    class Meta:
+        verbose_name = 'Sack'
+        verbose_name_plural = 'Sacks'
+        db_table = 'sacks'
+        ordering = ['id']
